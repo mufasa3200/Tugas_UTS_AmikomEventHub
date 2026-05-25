@@ -112,6 +112,33 @@
             @endforeach
         </div>
     </section>
+    <section class="py-16 bg-gradient-to-b from-white to-gray-50 border-t mt-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-xl mx-auto mb-12">
+                <h2 class="text-xs font-bold text-indigo-600 tracking-widest uppercase mb-2">Network Ecosystem</h2>
+                <p class="text-2xl font-black text-gray-900 tracking-tight sm:text-3xl">Official Partners & Sponsor</p>
+                <p class="text-sm text-gray-500 mt-2">Platform integrasi AmikomEventHub didukung penuh oleh jaringan mitra teknologi dan organisasi kemahasiswaan terpercaya.</p>
+            </div>
 
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 justify-center items-center">
+                @forelse($partners as $partner)
+                    <div class="bg-white p-5 rounded-2xl border border-gray-200/80 shadow-sm flex flex-col items-center justify-center h-28 hover:shadow-md hover:border-indigo-300 transition duration-300 group cursor-pointer" title="Mitra Resmi: {{ $partner->name }}">
+                        <img src="{{ asset('storage/' . $partner->logo_url) }}" alt="Logo Resmi {{ $partner->name }}" class="max-h-14 max-w-full object-contain filter grayscale group-hover:grayscale-0 transition duration-300">
+                        <span class="text-[10px] text-gray-400 font-semibold mt-2 opacity-0 group-hover:opacity-100 transition duration-300 truncate w-full text-center">
+                            {{ $partner->name }}
+                        </span>
+                    </div>
+                @empty
+                    <div class="col-span-full text-center py-6">
+                        <p class="text-sm text-gray-400 italic font-medium">AmikomEventHub saat ini sedang membuka peluang kerjasama partner sponsorship.</p>
+                    </div>
+                @endforelse
+            </div>
+            
+            <div class="mt-12 text-center text-xs text-gray-400 border-t border-dashed pt-6">
+                Menampilkan data hubungan dinamis ekosistem <span class="text-gray-600 font-bold">AmikomEventHub</span> &bull; Kelas SI Kampus Amikom Yogyakarta
+            </div>
+        </div>
+    </section>
 
 @endsection
