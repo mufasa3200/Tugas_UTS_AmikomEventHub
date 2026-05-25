@@ -12,7 +12,6 @@
 </head>
 <body class="bg-slate-50 text-slate-900 flex min-h-screen">
 
-    <!-- Sidebar -->
     <aside class="w-64 bg-indigo-900 text-indigo-100 flex flex-col p-6 space-y-8 sticky top-0 h-screen">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-indigo-900 font-bold text-xl">AH</div>
@@ -42,6 +41,13 @@
                 </svg>
                 Laporan Transaksi
             </a>
+
+            <a href="{{ route('admin.partners.index') }}" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.partners.*') ? 'bg-indigo-800 text-white' : 'hover:bg-indigo-800' }} rounded-xl font-bold transition">
+                <svg class="w-5 h-5 {{ request()->routeIs('admin.partners.*') ? 'text-indigo-300' : 'text-indigo-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                </svg>
+                Kelola Partner
+            </a>
         </nav>
 
         <div class="pt-6 border-t border-indigo-800">
@@ -57,9 +63,7 @@
         </div>
     </aside>
 
-    <!-- Main Content -->
     <main class="flex-1 p-10 overflow-y-auto w-full">
-        <!-- Header -->
         <header class="flex justify-between items-center mb-10 w-full col-span-full">
             <div>
                 <h1 class="text-3xl font-black">@yield('page_title', 'Dashboard')</h1>

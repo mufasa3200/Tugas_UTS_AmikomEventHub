@@ -1,9 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<!-- Stats Grid -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-    <!-- Total Pendapatan -->
     <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
         <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-4">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -14,7 +12,6 @@
         <h3 class="text-2xl font-black">Rp 12.450.000</h3>
     </div>
 
-    <!-- Tiket Terjual -->
     <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
         <div class="w-12 h-12 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-4">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -25,7 +22,6 @@
         <h3 class="text-2xl font-black">1.284</h3>
     </div>
 
-    <!-- Event Aktif -->
     <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
         <div class="w-12 h-12 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center mb-4">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -36,19 +32,24 @@
         <h3 class="text-2xl font-black">8 Event</h3>
     </div>
 
-    <!-- Pesanan Pending -->
-    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
-        <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center mb-4">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
+    <a href="{{ route('admin.partners.index') }}" class="group bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:border-indigo-500 hover:shadow-md transition-all duration-300 block">
+        <div class="flex justify-between items-start">
+            <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                </svg>
+            </div>
+            <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1">
+                Kelola &rarr;
+            </span>
         </div>
-        <p class="text-slate-400 text-sm font-bold uppercase mb-1">Pesanan Pending</p>
-        <h3 class="text-2xl font-black">12 Pesanan</h3>
-    </div>
+        <p class="text-slate-400 text-sm font-bold uppercase mb-1">Mitra Ekosistem</p>
+        <h3 class="text-2xl font-black text-slate-800 group-hover:text-indigo-600 transition-colors">
+            {{ $partnersCount ?? '6' }} Partner
+        </h3>
+    </a>
 </div>
 
-<!-- Latest Sales Table -->
 <div class="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
     <div class="p-8 border-b flex justify-between items-center">
         <h3 class="font-black text-xl">Transaksi Terakhir</h3>
@@ -76,7 +77,6 @@
                     </td>
                     <td class="px-8 py-6 font-black text-indigo-600">Rp 155.000</td>
                 </tr>
-                <!-- Tambahkan baris lainnya di sini -->
             </tbody>
         </table>
     </div>

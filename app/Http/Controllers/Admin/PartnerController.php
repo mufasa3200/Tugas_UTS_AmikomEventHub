@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Partner;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,7 +18,9 @@ class PartnerController extends Controller
             return $query->where('name', 'LIKE', '%' . $keyword . '%');
         })->latest()->get();
 
-        return view('admin.partners.index', compact('partners'));
+        $categories = Category::all();
+
+        return view('admin.partners.index', compact('partners', 'categories'));
     }
 
     public function store(Request $request)
