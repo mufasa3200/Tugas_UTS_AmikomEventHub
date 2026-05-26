@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -12,7 +13,6 @@ class CategoryController extends Controller
     {
         $keyword = $request->get('search');
         
-        // Menggunakan variabel $table_categories agar tidak bentrok dengan view global sidebar
         $table_categories = Category::when($keyword, function ($query, $keyword) {
             return $query->where('name', 'LIKE', '%' . $keyword . '%');
         })->latest()->get();
@@ -22,19 +22,30 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate(['name' => 'required|string|max:255']);
+        $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name'
+        ]);
         
-        Category::create(['name' => $request->name]);
+        Category::create([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name)
+        ]);
 
         return redirect()->back()->with('success', 'Kategori baru berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate(['name' => 'required|string|max:255']);
+        $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name,' . $id
+        ]);
         
         $category = Category::findOrFail($id);
-        $category->update(['name' => $request->name]);
+        
+        $category->update([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name)
+        ]);
 
         return redirect()->back()->with('success', 'Nama kategori berhasil diubah!');
     }

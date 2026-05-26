@@ -74,7 +74,7 @@
             </form>
             <div class="mt-4 p-4 bg-gray-50 border rounded-xl text-xs text-gray-500 leading-relaxed">
                 <span class="font-bold text-gray-700 block mb-1">💡 Pencarian Perusahaan Sponsor:</span>
-                ketikkan keyword perusahaan yang dicari di atas<code class="bg-gray-200 px-1 py-0.5 rounded font-mono"></code>
+                Ketikkan keyword nama perusahaan yang anda cari di atas<code class="bg-gray-200 px-1 py-0.5 rounded font-mono"></code>
             </div>
         </div>
     </div>
