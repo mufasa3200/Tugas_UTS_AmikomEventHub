@@ -12,12 +12,12 @@ class CategoryController extends Controller
     {
         $keyword = $request->get('search');
         
-        $categories = Category::when($keyword, function ($query, $keyword) {
+        // Menggunakan variabel $table_categories agar tidak bentrok dengan view global sidebar
+        $table_categories = Category::when($keyword, function ($query, $keyword) {
             return $query->where('name', 'LIKE', '%' . $keyword . '%');
         })->latest()->get();
 
-        // Soal 1: Return ke halaman index admin kategori
-        return view('admin.categories.index', compact('categories'));
+        return view('admin.categories.index', compact('table_categories'));
     }
 
     public function store(Request $request)

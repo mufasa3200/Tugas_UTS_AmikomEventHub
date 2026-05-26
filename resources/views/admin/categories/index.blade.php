@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container mx-auto px-4 py-8">
@@ -7,23 +7,20 @@
             <h1 class="text-2xl font-bold text-gray-800">Manajemen Panel Admin</h1>
             <p class="text-sm text-gray-500 mt-1">Modul Pengelolaan Kategori Event AmikomEventHub</p>
         </div>
-        <div class="mt-4 md:mt-0 text-sm text-gray-500">
-            Branch: <span class="bg-indigo-100 text-indigo-700 px-2 py-1 rounded font-mono font-bold">ujian-tengah-semester-24.12.3200</span>
-        </div>
-    </div>
-
+    </div>  
     @if(session('success'))
         <div class="mb-6 p-4 bg-green-100 border-l-4 border-green-500 text-green-700 rounded-r-xl shadow-sm flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 <span class="font-medium">{{ session('success') }}</span>
             </div>
-            <button onclick="this.parentElement.remove()" class="text-green-500 hover:text-green-700 font-bold">&times;</button>
+            <div class="flex-1 text-right">
+                <button onclick="this.parentElement.parentElement.remove()" class="text-green-500 hover:text-green-700 font-bold">&times;</button>
+            </div>
         </div>
     @endif
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        
         <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
             <h2 class="text-lg font-bold mb-4 text-gray-700 flex items-center gap-2">
                 <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -75,7 +72,7 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y text-sm">
-                    @forelse($categories as $category)
+                    @forelse($table_categories as $category)
                     <tr class="hover:bg-gray-50/70 transition">
                         <td class="p-4 font-mono font-bold text-gray-500">#{{ $category->id }}</td>
                         <td class="p-4 font-medium text-gray-900">{{ $category->name }}</td>

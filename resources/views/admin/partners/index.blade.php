@@ -7,9 +7,6 @@
             <h1 class="text-2xl font-bold text-gray-800">Manajemen Panel Admin</h1>
             <p class="text-sm text-gray-500 mt-1">Modul Pengelolaan Jaringan Partner AmikomEventHub</p>
         </div>
-        <div class="mt-4 md:mt-0 text-sm text-gray-500">
-            Branch: <span class="bg-indigo-100 text-indigo-700 px-2 py-1 rounded font-mono font-bold">ujian-tengah-semester-24.12.3200</span>
-        </div>
     </div>
 
     @if ($errors->any())
@@ -76,8 +73,8 @@
                 @endif
             </form>
             <div class="mt-4 p-4 bg-gray-50 border rounded-xl text-xs text-gray-500 leading-relaxed">
-                <span class="font-bold text-gray-700 block mb-1">💡 Catatan Demonstrasi UTS:</span>
-                Ketika merekam video demo, ketikkan keyword pencarian di atas untuk menunjukkan fungsionalitas syntax filter <code class="bg-gray-200 px-1 py-0.5 rounded font-mono">where('name', 'LIKE', '%...%')</code> lo ke asdos.
+                <span class="font-bold text-gray-700 block mb-1">💡 Pencarian Perusahaan Sponsor:</span>
+                ketikkan keyword perusahaan yang dicari di atas<code class="bg-gray-200 px-1 py-0.5 rounded font-mono"></code>
             </div>
         </div>
     </div>
