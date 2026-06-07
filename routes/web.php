@@ -3,33 +3,42 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController as EventAdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PartnerController;
+use App\Http\Controllers\Admin\TransactionController;
 
+Route::get('/login', function () {
+    return redirect()->route('admin.login');
+})->name('login');
 
-// Rute User Area
+// Rute User Area 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/event/1', [EventController::class, 'show'])->name('events.show');
 Route::get('/checkout', [EventController::class, 'checkout'])->name('checkout');
 Route::get('/my-ticket', [EventController::class, 'ticket'])->name('ticket');
 
+// Rute Admin Area 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-    Route::get('/', [DashboardController::class,'index'])->name('dashboard');
-    Route::get('/events', [DashboardController::class,'indexEvent'])->name('events.index');
-    Route::get('/transactions', [DashboardController::class,'indexTransaction'])->name('transactions.index');
-});
+    
+    // Rute Login bebas akses 
+    Route::get('login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('login', [AuthController::class, 'login'])->name('login.post');
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    
-    Route::get('/transactions', [DashboardController::class, 'indexTransaction'])->name('transactions.index');
-    
-    Route::resource('events', EventAdminController::class);
-    
-    Route::resource('categories', CategoryController::class)->except(['create', 'edit', 'show']);
-    Route::resource('partners', PartnerController::class)->except(['create', 'edit', 'show']);
-
+    // Mengamankan seluruh Route Administrasi di balik tembok Middleware
+    Route::middleware(['auth', 'admin'])->group(function () {
+        
+        // Dashboard & Laporan
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard-alias');
+        Route::get('transactions', [TransactionController::class, 'index'])->name('transactions.index');
+        
+        // Resource CRUD Admin 
+        Route::resource('events', EventAdminController::class);
+        Route::resource('categories', CategoryController::class)->except(['create', 'edit', 'show']);
+        Route::resource('partners', PartnerController::class)->except(['create', 'edit', 'show']);
+    });
 });
