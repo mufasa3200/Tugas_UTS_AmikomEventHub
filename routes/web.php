@@ -16,7 +16,7 @@ Route::get('/login', function () {
 
 // Rute User Area 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/event/1', [EventController::class, 'show'])->name('events.show');
+Route::get('/events/{event}', [\App\Http\Controllers\EventController::class, 'show'])->name('events.show');
 Route::get('/checkout', [EventController::class, 'checkout'])->name('checkout');
 Route::get('/my-ticket', [EventController::class, 'ticket'])->name('ticket');
 
