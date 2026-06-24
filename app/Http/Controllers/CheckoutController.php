@@ -35,23 +35,34 @@ class CheckoutController extends Controller
         $orderId = 'TRX-' . time() . '-' . Str::random(5);
         $totalPrice = $event->price + 5000; // Menambahkan biaya admin (dummy)
 
-        // 4. Merekam Transaksi ke Database
+        // 4. Merekam Transaksi ke Database (KODE INI YANG HILANG)
+        $transaction = Transaction::create([
+            'event_id'       => $event->id,
+            'order_id'       => $orderId,
+            'customer_name'  => $request->customer_name,
+            'customer_email' => $request->customer_email,
+            'customer_phone' => $request->customer_phone,
+            'total_price'    => $totalPrice,
+            'status'         => 'Pending', // Status Awal
+        ]);
+
+        // --- INTEGRATION SNAP MIDTRANS ---
         // Konfigurasi Kredensial Environment Midtrans
-        \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+        \Midtrans\Config::$serverKey   = env('MIDTRANS_SERVER_KEY');
         \Midtrans\Config::$isProduction = false; // Mode Sandbox!
-        \Midtrans\Config::$isSanitized = true;
-        \Midtrans\Config::$is3ds = true;
+        \Midtrans\Config::$isSanitized  = true;
+        \Midtrans\Config::$is3ds        = true;
 
         // Susun Paket Array Data Transaksi
         $params = [
             'transaction_details' => [
-                'order_id' => $orderId,
+                'order_id'     => $orderId,
                 'gross_amount' => $totalPrice,
             ],
             'customer_details' => [
                 'first_name' => $request->customer_name,
-                'email' => $request->customer_email,
-                'phone' => $request->customer_phone,
+                'email'      => $request->customer_email,
+                'phone'      => $request->customer_phone,
             ],
         ];
 
@@ -59,13 +70,16 @@ class CheckoutController extends Controller
             // Perintah Tembak Generate Snap Token
             $snapToken = \Midtrans\Snap::getSnapToken($params);
             
-            // Update rekaman kita bahwa transaksi terkait sudah memiliki id token pelunasan
+            // Update rekaman transaksi dengan snap_token yang didapat
             $transaction->update(['snap_token' => $snapToken]);
             
             // Redirect ke halaman antarmuka pembayaran final pelanggan
             return redirect()->route('checkout.payment', $transaction->order_id);
             
         } catch (\Exception $e) {
+            // Jika gagal dapat token dari Midtrans, hapus log transaksi kosongnya agar tidak mengotori DB
+            $transaction->delete();
+            
             return back()->with('error', 'Gagal memproses pembayaran jaringan: ' . $e->getMessage());
         }
     }
